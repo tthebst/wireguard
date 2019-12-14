@@ -12,10 +12,12 @@ IP="$(gcloud compute instances describe instance-wire  --format='get(networkInte
 echo "${IP}"
 
 
-
+#connect to cloud instance and install wireguard 
 echo timgretler@${IP}
 ls /home/gcloud/wireguard
 ssh -i /home/gcloud/wireguard tim@${IP} 'sudo add-apt-repository ppa:wireguard/wireguard;sudo apt-get update;sudo apt-get install wireguard;wg genkey | tee privatekey | wg pubkey > publickey'
 
 
+#create server_file
 python3 create_server_file.py 
+
