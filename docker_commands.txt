@@ -1,0 +1,1 @@
+docker run --rm -ti --volumes-from gcloud-config -v /Users/timgretler/projects/wireguard:/home -v /Users/timgretler/.ssh/gcloud:home  google/cloud-sdk  /home/wireguard_setup.sh

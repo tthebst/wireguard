@@ -1,11 +1,17 @@
 import sys
 
+public_server = sys.argv[1]
+private_client = sys.argv[2]
 
-conf = "[Peer] \n\
+conf = "[Interface]\n\
+Address    = 192.168.2.2/32, fd00:7::2/48 \n\
+PrivateKey = "+private_client+" \n\
+\n\
+[Peer] \n\
 # Name = public-server1.example-vpn.dev \n\
-PublicKey = <public key for public-server1.example-vpn.dev> \n\
+PublicKey = "+public_server+"\n\
 Endpoint = public-server1.example-vpn.dev:51820 \n\
 AllowedIPs = 0.0.0.0/0, : : /0 \n"
 
-with open("server.conf", "w") as f:
+with open("peer.conf", "w") as f:
     f.write(conf)
