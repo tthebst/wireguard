@@ -4,7 +4,7 @@ public_server = sys.argv[1]
 private_client = sys.argv[2]
 
 conf = "[Interface]\n\
-Address    = 192.168.2.2/32, fd00:7::2/48 \n\
+Address    = 192.168.2.2/32\n\
 PrivateKey = "+private_client+" \n\
 \n\
 [Peer] \n\
