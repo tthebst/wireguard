@@ -4,9 +4,8 @@
 
 
 #create google cloud micro instance
-$(echo "/home/gcloud/wireguard.pub")
-
-gcloud beta compute --project=personal-stuff123 instances create instance-wire --zone=asia-east2-c --machine-type=f1-micro --subnet=default --network-tier=PREMIUM --metadata-from-file=ssh-keys=/home/gcloud/wireguard.pub --maintenance-policy=MIGRATE --service-account=356728976673-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --image=ubuntu-1804-bionic-v20191113 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=instance-1 --reservation-affinity=any
+chmod 777 /home/gcloud/wireguard.pub
+gcloud beta compute --project=personal-stuff123 instances create instance-wire --zone=asia-east2-c --machine-type=f1-micro --subnet=default --network-tier=PREMIUM --metadata-from-file ssh-keys=/home/gcloud/wireguard.pub --maintenance-policy=MIGRATE --service-account=356728976673-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --image=ubuntu-1804-bionic-v20191113 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=instance-1 --reservation-affinity=any
 
 
 #get IP address of created instance
