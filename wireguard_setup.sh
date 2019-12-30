@@ -25,7 +25,8 @@ ls -l /home
 chmod +777 /home/create_server_file.py
 ls -l /home
 scp -v -i $HOME/.ssh/gcloud /home/create_server_file.py tim@${IP}:/home/tim
-ssh -v -i $HOME/.ssh/gcloud tim@${IP} 'sudo add-apt-repository ppa:wireguard/wireguard;sudo apt-get -y update;sudo apt-get -y install wireguard;wg genkey | tee privatekey | wg pubkey > publickey;echo privatekey;python3 /home/tim/create_server_file.py "$(cat "/home/tim/privatekey")" "$(cat "/home/tim/publickey")" ;wg-quick up /home/tim/server.conf'
+scp -v -i $HOME/.ssh/gcloud /home/create_server_file.py tim@${IP}:/home/tim
+ssh -v -i $HOME/.ssh/gcloud tim@${IP} 'sudo add-apt-repository ppa:wireguard/wireguard;sudo apt-get -y update;sudo apt-get -y install wireguard;wg genkey | tee privatekey | wg pubkey > publickey;echo privatekey;python3 /home/tim/create_server_file.py "$(cat "/home/tim/privatekey")" "$(cat "/home/tim/publickey")" ;wg-quick up /home/tim/server.conf;sudo ufw allow 22/tcp;sudo ufw allow 51820/udp;sudo ufw enable'
 
 
 
