@@ -18,5 +18,5 @@ AllowedIPs = 10.200.200.2/32 \n\
 "
 
 
-with open("server.conf", "w") as f:
+with open("/home/server.conf", "w") as f:
     f.write(conf)
