@@ -10,6 +10,7 @@ Address = 10.200.200.1/24\n\
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens4 -j MASQUERADE\n\
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens4 -j MASQUERADE \n\
 ListenPort = 51820\n\
+SaveConfig = true\n\
 PrivateKey = "+private_server+" \n\
 \n\
 [Peer]\n\

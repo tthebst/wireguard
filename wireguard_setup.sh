@@ -8,7 +8,7 @@ ssh-keygen -q -N "" -t rsa -f ~/.ssh/gcloud -C tim
 echo -n "tim:" > $HOME/id_rsa.pub
 cat $HOME/.ssh/gcloud.pub >> $HOME/id_rsa.pub
 ls ~/.ssh/ 
-
+cat $HOME/id_rsa.pub
 gcloud compute --project=personal-stuff123 firewall-rules create wireguard --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=udp:51820
 gcloud beta compute --project=personal-stuff123 instances create instance-wire --zone=asia-east2-c --machine-type=f1-micro --subnet=default --network-tier=PREMIUM --metadata-from-file ssh-keys=$HOME/id_rsa.pub --maintenance-policy=MIGRATE --service-account=356728976673-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --image=ubuntu-1804-bionic-v20191113 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=instance-1 --reservation-affinity=any
 
@@ -40,7 +40,7 @@ wg pubkey < example.key > publickey_server
 
 wg genkey > privatekey_client
 wg pubkey < example.key > publickey_client
-ls /
+ls $HOME/.ssh/gcloud 
 
 #generate server.conf and client.conf
 echo "Generating server/client files "
@@ -56,10 +56,11 @@ cat /home/client.conf
 
 sleep 10
 
-scp -v -i $HOME/.ssh/gcloud /home/server.conf tim@${IP}:/home/tim
+scp -v -i $HOME/.ssh/gcloud /home/server.conf tim@${IP}:/home/
 
+cat 
 
-ssh -v -i $HOME/.ssh/gcloud tim@${IP} 'sudo add-apt-repository ppa:wireguard/wireguard;sudo apt-get -y update;sudo apt-get -y install wireguard;sudo ufw allow 22/tcp;sudo ufw allow 51820/udp;sudo ufw enable;wg-quick up /home/tim/server.conf'
+ssh -v -i $HOME/.ssh/gcloud tim@${IP} 'sudo add-apt-repository ppa:wireguard/wireguard;sudo apt-get -y update;sudo apt-get -y install wireguard;sudo ufw allow 22/tcp;sudo ufw allow 51820/udp;sudo ufw enable;sudo ufw status verbose;echo "net.ipv4.ip_forward = 1 \n" >> sudo /etc/sysctl.conf;echo "net.ipv6.ip_forward = 1 \n" >> sudo /etc/sysctl.conf;wg-quick up /home/server.conf'
 
 
 
